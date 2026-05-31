@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Аригато | Сеть парикмахерских Череповец</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FAF7F5;
+            --accent-color: #E8D3C9;
+            --dark-accent: #B89F95;
+            --text-color: #3A3A3A;
+            --white: #FFFFFF;
+            --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* КРИТИЧЕСКИЕ ТЕХНИЧЕСКИЕ ИСПРАВЛЕНИЯ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent; /* Убирает синий квадрат на iOS/Android */
+            outline: none !important;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Сглаживание на macOS/iOS */
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* АНИМАЦИЯ ПОЯВЛЕНИЯ */
+        .hidden-fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .show-fade {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ШАПКА */
+        header {
+            background-color: rgba(250, 247, 245, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(184, 159, 149, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-color);
+        }
+
+        .header-tagline {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--dark-accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ГЛАВНЫЙ ЭКРАН */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(232, 211, 201, 0.2) 0%, rgba(250, 247, 245, 1) 80%);
+            padding-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            font-weight: 600;
+            display: block;
+            color: var(--dark-accent);
+        }
+
+        .btn-main {
+            display: inline-block;
+            background-color: var(--dark-accent);
+            color: var(--white);
+            padding: 22px 50px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(184, 159, 149, 0.2);
+        }
+
+        .btn-main:hover {
+            background-color: #a3897e;
+            transform: translateY(-3px);
+        }
+
+        /* СЕКЦИИ */
+        section {
+            padding: 100px 0;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* УСЛУГИ */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            background: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid rgba(232, 211, 201, 0.2);
+            transition: var(--transition);
+        }
+
+        .price-card:hover {
+            border-color: var(--dark-accent);
+            transform: translateY(-5px);
+        }
+
+        .price-card h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .price-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-accent);
+        }
+
+        /* О НАС / ФИЛОСОФИЯ */
+        .about-flex {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-weight: 300;
+            color: #666;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--accent-color), var(--white));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .about-image::after {
+            content: "Arigato Style";
+            color: var(--dark-accent);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border: 1px solid var(--dark-accent);
+            padding: 20px;
+        }
+
+        /* ЭТАПЫ РАБОТЫ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .step-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-num {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .step-item h4 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* ПРЕИМУЩЕСТВА */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* FAQ (Аккордеон) */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 0;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 20px;
+        }
+
+        /* ГАЛЕРЕЯ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-accent);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid rgba(184, 159, 149, 0.2);
+        }
+
+        /* ПОДВАЛ */
+        footer {
+            padding: 80px 0 40px;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .footer-contacts {
+            margin-bottom: 40px;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .btn-social {
+            width: 100%;
+            max-width: 320px;
+            padding: 18px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-telegram { background-color: #0088CC; }
+
+        .branches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 30px;
+            border-top: 1px solid #EEE;
+            padding-top: 30px;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #CCC;
+            letter-spacing: 2px;
+        }
+
+        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+        @media (max-width: 768px) {
+            section { padding: 60px 0; }
+            .hero h1 { font-size: 1.9rem; }
+            .btn-main { width: 100%; padding: 20px; }
+            .about-image { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Аригато</div>
+                <div class="header-tagline">Сеть парикмахерских в Череповце</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hidden-fade">
+            <h1>Сеть парикмахерских в Череповце. <span>Твой стиль в надёжных руках.</span></h1>
+            <a href="javascript:void(0);" class="btn-main">ЗАПИСАТЬСЯ В АРИГАТО</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title hidden-fade">Наши услуги</h2>
+            <div class="price-grid">
+                <div class="price-card hidden-fade">
+                    <h3>Женская стрижка</h3>
+                    <div class="price-value">от 700 ₽</div>
+                </div>
+                <div class="price-card hidden-fade">
+                    <h3>Мужская стрижка</h3>
+                    <div class="price-value">от 500 ₽</div>
+                </div>
+                <div class="price-card hidden-fade">
+                    <h3>Окрашивание волос</h3>
+                    <div class="price-value">от 2 500 ₽</div>
+                </div>
+                <div class="price-card hidden-fade">
+                    <h3>Маникюр + Покрытие</h3>
+                    <div class="price-value">от 1 400 ₽</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="about-flex">
+                <div class="about-text hidden-fade">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 30px;">Наша философия</h2>
+                    <p>Аригато — это место, где красота становится доступной. Мы создали сеть парикмахерских, где каждый житель Череповца может получить качественную стрижку и профессиональный уход без лишних переплат.</p>
+                    <p>Наша команда — это мастера, влюбленные в свое дело. Мы следим за трендами, постоянно учимся и верим, что идеальный образ складывается из мелочей и внимания к каждому гостю.</p>
+                </div>
+                <div class="about-image hidden-fade"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title hidden-fade">Как мы работаем</h2>
+            <div class="steps-grid">
+                <div class="step-item hidden-fade">
+                    <span class="step-num">01</span>
+                    <h4>Запись</h4>
+                    <p style="font-size: 0.8rem; color:#888;">Выберите удобное время онлайн или по телефону.</p>
+                </div>
+                <div class="step-item hidden-fade">
+                    <span class="step-num">02</span>
+                    <h4>Встреча</h4>
+                    <p style="font-size: 0.8rem; color:#888;">Мастер проведет консультацию перед началом работы.</p>
+                </div>
+                <div class="step-item hidden-fade">
+                    <span class="step-num">03</span>
+                    <h4>Процесс</h4>
+                    <p style="font-size: 0.8rem; color:#888;">Создаем ваш новый образ, используя лучшие материалы.</p>
+                </div>
+                <div class="step-item hidden-fade">
+                    <span class="step-num">04</span>
+                    <h4>Результат</h4>
+                    <p style="font-size: 0.8rem; color:#888;">Вы уходите от нас с идеальной стрижкой и улыбкой.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title hidden-fade">Почему выбирают нас</h2>
+            <div class="features-grid">
+                <div class="feature-item hidden-fade">
+                    <h4>Рядом с домом</h4>
+                    <p>5 филиалов во всех районах города для вашего удобства.</p>
+                </div>
+                <div class="feature-item hidden-fade">
+                    <h4>Честные цены</h4>
+                    <p>Прозрачный прайс-лист без скрытых доплат за расходники.</p>
+                </div>
+                <div class="feature-item hidden-fade">
+                    <h4>Стерильность</h4>
+                    <p>Полная многоступенчатая очистка всех инструментов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title hidden-fade">Часто задаваемые вопросы</h2>
+            <div class="faq-container">
+                <div class="faq-item hidden-fade">
+                    <button class="faq-question">Нужно ли записываться заранее? <span>+</span></button>
+                    <div class="faq-answer">
+                        Мы работаем как по предварительной записи, так и в порядке живой очереди. Однако для вашего комфорта мы рекомендуем записаться заранее.
+                    </div>
+                </div>
+                <div class="faq-item hidden-fade">
+                    <button class="faq-question">Какую косметику вы используете? <span>+</span></button>
+                    <div class="faq-answer">
+                        В работе мы используем только проверенные бренды профессиональной косметики, такие как Estel, Londa и Ollin.
+                    </div>
+                </div>
+                <div class="faq-item hidden-fade">
+                    <button class="faq-question">Есть ли гарантия на услуги? <span>+</span></button>
+                    <div class="faq-answer">
+                        Да, мы дорожим своей репутацией. Если вас не устроит результат, мы готовы обсудить и исправить работу в течение 3-х дней.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title hidden-fade">Наши работы</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item hidden-fade">Женский зал</div>
+                <div class="gallery-item hidden-fade">Барбер зона</div>
+                <div class="gallery-item hidden-fade">Колористика</div>
+                <div class="gallery-item hidden-fade">Маникюр</div>
+                <div class="gallery-item hidden-fade">Укладки</div>
+                <div class="gallery-item hidden-fade">Стиль</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2 class="section-title hidden-fade">Запись и консультация</h2>
+            <div class="social-buttons hidden-fade">
+                <a href="javascript:void(0);" class="btn-social btn-whatsapp">Написать в WhatsApp</a>
+                <a href="javascript:void(0);" class="btn-social btn-telegram">Написать в Telegram</a>
+            </div>
+            <div class="branches hidden-fade">
+                <div>пр. Советский, 82</div>
+                <div>пр. Победы, 131</div>
+                <div>пр. Победы, 107</div>
+                <div>ул. Ленина, 139</div>
+                <div>ул. Наседкина, 21</div>
+            </div>
+            <p class="copyright">© 2026 Сеть парикмахерских «Аригато». Череповец.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация при скролле (Intersection Observer)
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-fade');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden-fade').forEach(el => observer.observe(el));
+
+        // FAQ Аккордеон
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Закрыть другие при открытии текущего (опционально)
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) item.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
